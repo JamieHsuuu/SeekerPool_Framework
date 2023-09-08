@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SEEKER'S POOL 徵才博覽會管理</title>
+	<!-- 引入 Axios, Vue, css, jquery-->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+	<!--	<link rel="stylesheet" href="assets/css/Carousel-Hero.css">-->
+	<link rel="stylesheet" href="../../companyHomePage/CompanyHomePage.css" />
+	<link rel="stylesheet" href="./Companyjobfair.css" />
+	<script src="./js/jquery-3.4.1.min.js"></script>
+	<!--	<link rel="stylesheet" href="assets/css/Testimonials-Centered.css">-->
+	<!--	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">-->
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-------------------- 引入axios -------------------->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+	<main>
+		<div class="container">
+
+			<!-- ======================= side-bar(左邊欄位) ====================== -->
+			<div class="side-bar">
+				<div class="logo">
+					<div class="img">
+						<img src="../../../company/vacancy/img/TSMC_logo.svg.png" alt="this is a logo" id="logoImg">
+					</div>
+					<h3 id="brand-name">台雞電股份有限公司</h3>
+				</div>
+				<menu>
+					<ul>
+						<li class="main-list center">
+							<a href="#" draggable="false"> <!--第一個-->
+								<i class="fa-solid fa-address-card"></i>會員中心
+								<div class="caret-icon">
+									<i class="fa-solid fa-sort-down"></i>
+								</div>
+							</a>
+
+							<!-- ======================= sub-menu ====================== -->
+							<ul class="sub-menu collapse -none">
+								<li class="sub-list">
+									<a href="../../companymember/companyInfo.html" draggable="false">會員資料管理</a>
+								</li>
+
+								<li class="sub-list">
+									<a href="../../../company/vacancy/html/VacancyManagement.html"
+										draggable="false">職缺管理</a>
+								</li>
+
+								<li class="sub-list">
+									<a href="../../companymember/interviewer_manage.html" draggable="false">應徵者管理</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="main-list talent-search">
+							<a href="../../../company/vacancy/html/TalentSearch.html" draggable="false"> <!--第二個-->
+								<i class="fa-solid fa-user-tie"></i>人才查詢
+							</a>
+
+						</li>
+
+						<li class="main-list purchase">
+							<a href="#" draggable="false"> <!--第三個-->
+								<i class="fa-solid fa-cart-shopping"></i>刊登方案
+								<div class="caret-icon">
+									<i class="fa-solid fa-sort-down"></i>
+								</div>
+							</a>
+							<ul class="sub-menu collapse -none">
+								<li class="sub-list">
+									<a href="../../../company/jobcase/companyjobselect.html"
+										draggable="false">刊登職缺管理</a>
+								</li>
+								<li class="sub-list">
+									<a href="../../../company/jobcase/companyjobcase.html" draggable="false">刊登方案</a>
+								</li>
+								<li class="sub-list">
+									<a href="../../../company/jobcase/companyjobcaseconfirm.html"
+										draggable="false">我要刊登</a>
+								</li>
+								<li class="sub-list">
+									<a href="../../../company/jobcase/companyjobordersearch.html"
+										draggable="false">刊登訂單查詢</a>
+								</li>
+							</ul>
+						</li>
+						<li class="main-list expo">
+							<a href="#" draggable="false"> <!--第四個-->
+								<i class="fa-solid fa-house"></i>徵才博覽會管理
+								<div class="caret-icon">
+									<i class="fa-solid fa-sort-down"></i>
+									<i id="-none" class="fa-solid fa-caret-up"></i>
+								</div>
+							</a>
+							<ul class="sub-menu collapse -none">
+								<li class="sub-list">
+									<a href="../jfindex/Companyjobfair.html" draggable="false">徵才博覽會一覽</a>
+								</li>
+								<li class="sub-list">
+									<a href="./signUpRecord/signUpRecord.html" draggable="false">報名紀錄</a>
+								</li>
+							</ul>
+						</li>
+						<li class="main-list logout">
+							<a href="javascript:location.href='/SeekerPool/CompanyLogout'" draggable="false"> <!--第五個-->
+								<i class="fa-solid fa-arrow-right-from-bracket"></i>登出
+							</a>
+						</li>
+					</ul>
+				</menu>
+			</div>
+
+			<!-- ======================= main-content ====================== -->
+			<div class="main-content">
+				<section>
+					<div class="row">
+						<div class="search">
+							<select id="season">
+
+								<option disabled="disabled" selected>請選擇期間</option>
+
+								<option>夏季</option>
+								<option>秋季</option>
+								<option>冬季</option>
+							</select>
+							<button type="submit" id="searchBtn">搜尋</button>
+						</div>
+						<div style="border:1px solid orange;transform:translateX(-30px);" class="searchForRecord" id="divall" >
+							查看全部
+						</div>
+						<div style="border:1px solid orange;" class="searchForRecord" id="record">
+							查看報名紀錄
+						</div>
+					</div>
+
+					<div id="jf" class="showInfo">
+
+					</div>
+					<div id="button">
+						<button id="prev">上一頁</button>
+						<button id="next">下一頁</button>
+					</div>
+				</section>
+			</div>
+		</div>
+	</main>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.0.js"
+		integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+	<script>
+		// ===================================================================================
+		// 左邊欄位打開闔起動畫 (ok)
+		$("ul").on("click", ".main-list", function () {
+			$(this).closest(".main-list").find(".sub-menu").slideToggle(400, function () {
+				$(this).closest(".main-list").find(".sub-menu").toggleClass("-none")
+			});
+		});
+	</script>
+	<script>
+		var a = 0;
+		$(function () {
+			$("div#record").on("click", function () {
+				window.location.replace('./signUpRecord/signUpRecord.html');
+			})
+			$("div#divall").on("click",function(){
+				location.reload();
+			})
+			$("button#prev").on("click", function () {
+
+
+				$.ajax({
+					url: "/SeekerPool/JobFair",
+					method: 'POST',
+					datatype: "JSON",
+					data: { action: "getAll" },
+					success: function (res) {
+						a -= 3;
+						if (a < 0) {
+
+							alert("現在是第一頁")
+							a = 0;
+							return;
+						} else {
+							$("div#all").remove();
+							for (let i = 0 + a; i < (3 + a); i++) {
+								console.log("iiii" + i);
+								console.log(res[i]);
+								if(res[i]===undefined){
+									$("div#jf").append(`
+											<div id="all"class="fair fair1">
+											<div class="img"style="overflow:hidden;height:210px;contain:content;">
+												<img style="width:100%;height:225px;" src="./img/NoResult.jpg"alt="this is a photo">
+											</div>
+											<div class="intro"style="margin-top:20px;">
+											<h3 style="height:50px">查無資料</h3>
+											<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+					  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+												<form method="get" action="./signUp/signUp.html" >
+												<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+												</form>
+											</div>
+										</div>
+			                `)
+									
+								}else{
+								
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">${res[i].jfName}</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+   		                    
+   		                        
+   		                `)
+								}
+
+							}
+						}
+					}
+				})
+
+			})
+
+			$("button#next").on("click", function () {
+				$.ajax({
+					url: "/SeekerPool/JobFair",
+					method: 'POST',
+					datatype: "JSON",
+					data: { action: "getAll" },
+					success: function (res) {
+						a += 3;
+						if ((a + 3) > (res.length + 2)) {
+							alert("已經是最後一頁了")
+							a = (res.length - 1);
+							return;
+						} else {
+							$("div#all").remove();
+
+							for (let i = 0 + a; i < (3 + a); i++) {
+								console.log(res[i]);
+								if(res[i]===undefined){
+									$("div#jf").append(`
+											<div id="all"class="fair fair1">
+											<div class="img"style="overflow:hidden;height:210px;contain:content;">
+												<img style="width:100%;height:225px;" src="./img/NoResult.jpg"alt="this is a photo">
+											</div>
+											<div class="intro"style="margin-top:20px;">
+											<h3 style="height:50px">查無資料</h3>
+											<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+					  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+												<form method="get" action="./signUp/signUp.html" >
+												<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+												</form>
+											</div>
+										</div>
+			                `)
+									
+								}else{
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">${res[i].jfName}</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+   		                `)
+								}
+
+							}
+						}
+					}
+				})
+
+			})
+
+
+			$.ajax({
+				url: "/SeekerPool/JobFair",
+				method: 'POST',
+				datatype: "JSON",
+				data: { action: "getAll" },
+				success: function (res) {
+
+
+					for (let i = 0; i < 3; i++) {
+						console.log(res[i]);
+						if(res[i]===undefined){
+							$("div#jf").append(`
+									<div id="all"class="fair fair1">
+									<div class="img"style="overflow:hidden;height:210px;contain:content;">
+										<img style="width:100%;height:225px;" alt="this is a photo">
+									</div>
+									<div class="intro"style="margin-top:20px;">
+									<h3 style="height:50px">查無資料</h3>
+									<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+			  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+										<form method="get" action="./signUp/signUp.html" >
+										<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+										</form>
+									</div>
+								</div>
+	                `)
+							
+						}else{
+						$("div#jf").append(`
+								<div id="all"class="fair fair1">
+								<div class="img"style="overflow:hidden;height:210px;contain:content;">
+									<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+								</div>
+								<div class="intro"style="margin-top:20px;">
+								<h3 style="height:50px">${res[i].jfName}</h3>
+								<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+		  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+									<form method="get" action="./signUp/signUp.html" >
+									<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+									</form>
+								</div>
+							</div>
+	                `)
+						}
+
+					}
+				}
+			})
+		})
+		$("button#searchBtn").on("click", function () {
+			$("div#all").remove();
+			if ($("select#season").val().trim() === "請選擇期間") {
+				location.reload();
+			} else {
+
+				$.ajax({
+					url: "/SeekerPool/JobFair",
+					method: 'GET',
+					datatype: "JSON",
+					data: { action: "getSeason_For_Display", season: $("select#season").val() },
+					success: function (res) {
+						$("button#prev").remove();
+						$("button#next").remove();
+						$("button#seasonp").remove();
+						$("button#seasonn").remove();
+						var a = 0;
+						for (let i = 0; i < 3; i++) {
+							console.log(res[i]);
+							if(res[i]===undefined){
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;" src="./img/NoResult.jpg"alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">查無資料</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+		                `)
+								
+							}else{
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">${res[i].jfName}</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+		                `)
+								
+							}
+							
+
+
+						}
+						$("div#button").append(`
+                    		<button id="seasonp">上一頁</button>
+							<button id="seasonn" style="margin-left: 20px;">下一頁</button>
+                    		`)
+
+
+					}
+				})
+			}
+		})
+		$("div#button").on("click", "button#seasonp", function () {
+
+			$.ajax({
+				url: "/SeekerPool/JobFair",
+				method: 'GET',
+				datatype: "JSON",
+				data: { action: "getSeason_For_Display", season: $("select#season").val() },
+				success: function (res) {
+					a -= 3;
+					if (a < 0) {
+
+						a = 0;
+						alert("現在是第一頁")
+						return;
+					} else {
+						console.log(a);
+						$("div#all").remove();
+
+						for (let i = a; i < 3 + a; i++) {
+							console.log(res[i]);
+							if(res[i]===undefined){
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;" src="./img/NoResult.jpg"alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">查無資料</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+		                `)
+								
+							}else{
+							$("div#jf").append(`
+									<div id="all"class="fair fair1">
+									<div class="img"style="overflow:hidden;height:210px;contain:content;">
+										<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+									</div>
+									<div class="intro"style="margin-top:20px;">
+									<h3 style="height:50px">${res[i].jfName}</h3>
+									<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+			  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+										<form method="get" action="./signUp/signUp.html" >
+										<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+										</form>
+									</div>
+								</div>
+          	                `)
+							}
+
+						}
+					}
+				}
+			})
+
+		})
+
+		$("div#button").on("click", "button#seasonn", function () {
+
+			$.ajax({
+				url: "/SeekerPool/JobFair",
+				method: 'GET',
+				datatype: "JSON",
+				data: { action: "getSeason_For_Display", season: $("select#season").val() },
+				success: function (res) {
+					a += 3;
+
+					if ((3 + a) > (res.length + 2)) {
+						alert("已經是最後一頁了")
+						a = (res.length - 1);
+						return;
+					} else {
+						console.log($("select#season").val());
+						$("div#all").remove();
+
+						for (let i = 0 + a; i < 3 + a; i++) {
+							console.log(res[i]);
+							if(res[i]===undefined){
+								$("div#jf").append(`
+										<div id="all"class="fair fair1">
+										<div class="img"style="overflow:hidden;height:210px;contain:content;">
+											<img style="width:100%;height:225px;"src="./img/NoResult.jpg" alt="this is a photo">
+										</div>
+										<div class="intro"style="margin-top:20px;">
+										<h3 style="height:50px">查無資料</h3>
+										<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+				  	                    	  -webkit-line-clamp: 3;">查無資料</p>
+											<form method="get" action="./signUp/signUp.html" >
+											<button type="button" name="jfNo" style="margin-top:20px;">了解詳情</button>
+											</form>
+										</div>
+									</div>
+		                `)
+								
+							}else{
+							$("div#jf").append(`
+									<div id="all"class="fair fair1">
+									<div class="img"style="overflow:hidden;height:210px;contain:content;">
+										<img style="width:100%;height:225px;"src="${res[i].jrArImg}" alt="this is a photo">
+									</div>
+									<div class="intro"style="margin-top:20px;">
+									<h3 style="height:50px">${res[i].jfName}</h3>
+									<p style="margin-top:20px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;
+			  	                    	  -webkit-line-clamp: 3;">${res[i].jfActivity}</p>
+										<form method="get" action="./signUp/signUp.html" >
+										<button type="submit" name="jfNo" value="${res[i].jfNo}"style="margin-top:20px;">了解詳情</button>
+										</form>
+									</div>
+								</div>
+                     	                `)
+							}
+
+
+						}
+					}
+				}
+
+			})
+
+		})
+
+	</script>
+	<!-- header 讀取企業會員資訊 -->
+	<script src="./js/readInfoHeader.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html style="background: var(--bs-indigo);">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Seeker's pool</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900&amp;display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/FPE-Gentella-form-elements-1.css">
+    <link rel="stylesheet" href="assets/css/FPE-Gentella-form-elements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/Multi-step-form.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-Dark.css">
+    <link rel="stylesheet" href="assets/css/Simple-Slider.css">
+    <!-------------------- 引入axios -------------------->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body style="background: var(--bs-gray-500);">
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3"
+        style="width: 100%;height: 100px;background-color:#7f4d14 !important;">
+        <div class="container"><img src="assets/img/123%20(1).png" style="width: 150px;">
+            <a class="navbar-brand d-flex align-items-center" href="../Companyjobfair.html">
+                <span style="font-size: 50px;transform:translateX(390px)">徵才博覽會
+                </span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-5">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a id="brand-name" class="nav-link active" href="#">業主名稱</a></li>
+
+                </ul><a class="btn btn-primary ms-md-2" role="button"
+                    href="javascript:location.href='/SeekerPool/CompanyLogout'">登出</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="dd" class=" container" style="width: 700px;">
+        <p id="ddd" style="background: #ffffff;box-shadow: 2px 2px rgb(13,14,14);width: 700px;height: 1000px;word-wrap:break-word;padding: 20px; font-size: medium;
+	        			 "></p>
+
+    </div>
+
+    <footer class="text-center bg-dark" style="margin: 0px;background-color:#7f4d14 !important;">
+        <div class="footer-bar">
+            <div class="footer-top">
+                <div>
+                    <h3 style="color:white;transform:translateX(-20px);">關於悉客<i class="fa fa-building"></i></h3>
+                    <p style="color: white;">
+                        我們成立於2023年3月，從最初的八位合夥人到至今的萬人團隊，多年來秉持著「人人有工作、戶戶有飯吃」的最高志向，兢兢業業的替用戶找到理想工作、幫企業找到適合的人才! Love and
+                        Peace</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p style="color:white;">Copyright&copy; 2023 Seeker's Pool | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+    <script src="assets/js/Multi-step-form.js"></script>
+    <script src="assets/js/Simple-Slider.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        console.log(getUrlParam('jfNo'));
+        $(function () {
+            $.ajax({
+                url: "/SeekerPool/SignupRecordServlet",
+                method: 'POST',
+                datatype: "JSON",
+                data: { jfNo: getUrlParam('jfNo'), action: "getOne_For_Display" },
+                success: function (res) {
+                    console.log(res);
+                    $("p#ddd").append(`<img
+	        		    src="${res.jrArImg}"
+	        		    style="width: 100%; height: 400px;">
+	        		    <br><label for="schemeNumber" class="form-label"><strong>活動名稱:</strong></label>${res.jfName}
+	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:20px'><strong>活動內容:</strong></label>
+	        		    <br><label style="display: -webkit-box;-webkit-box-orient: vertical;margin-left:35px">${res.jfActivity}</label>
+	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:20px;margin-bottom:20px'><strong>報名時間:</strong></label>${res.regStartTime + "~" + res.regEndTime}
+	        		    <br>-------------------------------------------------------------------------------------------------------------------------
+	        		    `)
+                    $.ajax({
+                        url: "/SeekerPool/SignupRecordServlet",
+                        method: 'POST',
+                        datatype: "JSON",
+                        data: { action: "getOne_For_Display2", comMemId: "3", jfNo: getUrlParam('jfNo') },
+                        success: function (res) {
+                            console.log(res);
+                            $("p#ddd").append(`
+ 	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:10px;margin-bottom:10px;'><strong>企業名稱:</strong></label><input type="text" value="${res.comName}"readonly="readonly">
+ 	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:10px;margin-bottom:10px;'><strong>企業統編:</strong></label><input type="text" value="${res.taxNum}"readonly="readonly">
+ 	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:10px;margin-bottom:10px;'><strong>企業地址:</strong></label><input type="text" value="${res.comEmail}"readonly="readonly">
+ 	        		    <br><label for="schemeNumber" class="form-label"style='margin-top:10px;margin-bottom:10px;'><strong>企業電話:</strong></label><input type="text" value="${res.comAddress}"readonly="readonly">
+ 	        		    <br><button id="sub"class="btn btn-primary"style='margin-left:310px;margin-top:10px;'>我要報名</button>
+ 	        		    `)
+                        }
+                    })
+                }
+            })
+
+        })
+        $("p#ddd").on("click", "button#sub", function () {
+            $.ajax({
+                url: "/SeekerPool/SignupRecordServlet",
+                method: 'POST',
+                datatype: "JSON",
+                data: { jfNo: getUrlParam('jfNo'), action: "insert", comMemId: "3" },
+                success: function (res) {
+                    alert(res);
+                }
+            })
+        })
+
+    </script>
+    <!-- header 讀取企業會員名稱 -->
+    <script src="../js/readCompanyName.js"></script>
+</body>
+
+</html>

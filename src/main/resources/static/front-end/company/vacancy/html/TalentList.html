@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEEKER'S POOL 招募管理</title>
+
+    <!-- 引入 Axios, Vue, css, jquery-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/TalentList.css" />
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <main id="app">
+
+        <!-- =================== 人才履歷詳情燈箱 =====================-->
+        <div class="talent-bio -none">
+            <div class="talent-bio-container" v-for="info in resume">
+
+                <!-- 第一層 -->
+                <div class="bio-info">
+                    <div class="bio-background">
+                        <h2 class="bio-name">{{info.memName}}</h2>
+                        <span class="bio-gender"><i class="fa-solid fa-user"></i>{{info.memGender}}</span>
+                        <span class="bio-contact"><i class="fa-solid fa-phone"></i>{{ phoneNumber }}</span>
+                        <span class="bio-address"><i class="fa-solid fa-location-dot"></i>{{ info.memAddress }}</span>
+                        <span class="bio-email"><i class="fa-solid fa-envelope"></i>{{ info.memEmail }}</span>
+                    </div>
+
+                    <div class="bio-img">
+                        <img :src="info.memPic" alt="selfie">
+                    </div>
+
+                    <i class="fa-solid fa-xmark" @click.stop="goBack()"></i>
+                </div>
+
+                <!-- 第二層 -->
+                <div class="bio-education">
+                    <h3>學歷 Education</h3>
+                    <p class="bio-school-name">{{ info.memCollege }}</p>
+                    <p class="bio-department">{{ info.memDepartment }}</p>
+                </div>
+
+                <!-- 第三層 -->
+                <div class="bio-certificate">
+                    <h3>語言能力 Languages</h3>
+                    <ul>
+                        <li class="certificate-list" v-for="lang in langArray">{{ lang }}</li>
+                    </ul>
+                </div>
+
+                <!-- 第四層 -->
+                <div class="skill-list">
+                    <h3>技術 Skills</h3>
+                    <ul>
+                        <li class="certificate-list" v-for="skill in skillArray">{{ skill }}</li>
+                    </ul>
+                </div>
+
+                <!-- 第五層 -->
+                <div class="bio-autobiography">
+                    <h3>個人自傳 Autobiography</h3>
+                    <p class="bio-content">
+                        {{info.memBio}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- =================== 人才履歷詳情燈箱結束 =====================-->
+
+        <div class="container">
+
+            <!-- ======================= side-bar(左邊欄位) ====================== -->
+            <div class="side-bar">
+                <div class="logo">
+                    <div class="img">
+                        <img src="#" alt="this is a logo" id="logoImg">
+                    </div>
+                    <h3 id="brand-name"></h3>
+                </div>
+                <menu>
+                    <ul>
+                        <li class="main-list center">
+                            <a href="#" draggable="false"> <!--第一個-->
+                                <i class="fa-solid fa-address-card"></i>會員中心
+                                <div class="caret-icon">
+                                    <i class="fa-solid fa-sort-down"></i>
+                                </div>
+                            </a>
+
+                            <!-- ======================= sub-menu ====================== -->
+                            <ul class="sub-menu collapse -none">
+                                <li class="sub-list">
+                                    <a href="../../companymember/companyInfo.html" draggable="false">會員資料管理</a>
+                                </li>
+
+                                <li class="sub-list">
+                                    <a href="VacancyManagement.html" draggable="false">職缺管理</a>
+                                </li>
+
+                                <li class="sub-list">
+                                    <a href="../../companymember/interviewer_manage.html" draggable="false">應徵者管理</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="main-list talent-search">
+                            <a href="TalentSearch.html" draggable="false"> <!--第二個-->
+                                <i class="fa-solid fa-user-tie"></i>人才查詢
+                            </a>
+
+                        </li>
+
+                        <li class="main-list purchase">
+                            <a href="#" draggable="false"> <!--第三個-->
+                                <i class="fa-solid fa-cart-shopping"></i>刊登方案
+                                <div class="caret-icon">
+                                    <i class="fa-solid fa-sort-down"></i>
+                                </div>
+                            </a>
+                            <ul class="sub-menu collapse -none">
+                                <li class="sub-list">
+                                    <a href="../../jobcase/companyjobselect.html" draggable="false">刊登職缺管理</a>
+                                </li>
+                                <li class="sub-list">
+                                    <a href="../../jobcase/companyjobcase.html" draggable="false">刊登方案</a>
+                                </li>
+                                <li class="sub-list">
+                                    <a href="../../jobcase/companyjobcaseconfirm.html" draggable="false">我要刊登</a>
+                                </li>
+                                <li class="sub-list">
+                                    <a href="../../jobcase/companyjobordersearch.html" draggable="false">刊登訂單查詢</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="main-list expo">
+                            <a href="#" draggable="false"> <!--第四個-->
+                                <i class="fa-solid fa-house"></i></i>徵才博覽會管理
+                                <div class="caret-icon">
+                                    <i class="fa-solid fa-sort-down"></i>
+                                    <i id="-none" class="fa-solid fa-caret-up"></i>
+                                </div>
+                            </a>
+                            <ul class="sub-menu collapse -none">
+                                <li class="sub-list">
+                                    <a href="../../jobfair/jfindex/Companyjobfair.html" draggable="false">徵才博覽會一覽</a>
+                                </li>
+                                <li class="sub-list">
+                                    <a href="../../jobfair/jfindex/signUpRecord/signUpRecord.html"
+                                        draggable="false">報名紀錄</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="main-list logout">
+                            <a href="javascript:location.href='/SeekerPool/CompanyLogout'" draggable="false"> <!--第五個-->
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>登出
+                            </a>
+                        </li>
+                    </ul>
+                </menu>
+            </div>
+
+            <!-- ======================= main-content ====================== -->
+            <div class="main-content">
+                <!-- -===================== search框 ================== -->
+                <div class="search">
+                    <form @submit.prevent="search">
+                        <input type="text" class="search-bar" @keyup.enter="search()" v-model.trim="keyword"
+                            placeholder="請輸入欲工作地點、技能搜尋人才">
+                        <button type="submit" class="search-btn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 這裡以後要用下面程式碼動態生成數字並append在talent-count後 -->
+                <span class="talent-number">一共搜尋到{{this.total}}位人才!</span>
+
+                <!-- 這裡以後要用下面程式碼動態生成人才清單並append在container後 -->
+                <div class="talent-list-container">
+                    <div class="talent-list" v-for="info in talentListData"> <!--第一個人選-->
+
+                        <div class="talent-img">
+                            <img :src="info.memPic" alt="this is a talent img">
+                        </div>
+                        <div class="talent-full-info">
+                            <span class="talent-info-top">
+                                <span class="talent-name">{{info.memName}}</span>
+                                <span class="gender man" v-if="info.memGender === '男'">{{info.memGender}}</span>
+                                <span class="gender woman" v-if="info.memGender === '女'">{{info.memGender}}</span>
+                            </span>
+
+                            <ul class="talent-info-bottom">
+                                <li>欲工作地點: <span class="talent-address">{{ info.memAddress }}</span></li>
+                                <li>學歷: <span class="graduation">{{ info.memCollege }}</span><span class="department">{{
+                                        info.memDepartment }}</span></li>
+                                <li>語言能力: <span class="langAbility">{{info.memLang}}</span></li>
+                                <li>技術: <span class="job-experience">{{ info.skNo }}</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="talent-btn-container">
+                            <button class="check-bio-btn" @click="openResume(info.memId)"><i
+                                    class="fa-solid fa-eye"></i>查看詳細履歷</button>
+                            <button class="interview-invitation-btn" @click="sendInvitation(info.memId)"><i
+                                    class="fa-regular fa-envelope"></i>邀約面試</button>
+                        </div>
+                    </div>
+                </div>
+                <!--================================ 人選結束 ============================-->
+                <!--  pagination       -->
+                <div class="pagination-container">
+                    <ul class="page">
+                        <li class="page__btn"><span class="pre" @click="goPrePage()"><i
+                                    class="fa-solid fa-angle-left"></i></span></li>
+                        <li class="page__numbers" v-for="(num, index) in generatedNumber" :key="index"
+                            :class="{ active: activeIndex === index }" @click="setActive(index)">{{num}}</li>
+                        <li class="page__btn"><span class="next" @click="goNextPage()"><i
+                                    class="fa-solid fa-angle-right"></i></span></li>
+                    </ul>
+                </div>
+                <!--  pagination       -->
+            </div>
+            <!--================================ 中間頁面結束 ============================-->
+
+        </div>
+    </main>
+
+    <script>
+        // ===================================================================================
+        // 左邊欄位打開闔起動畫 (ok)
+        $("ul").on("click", ".main-list", function () {
+            $(this).closest(".main-list").find(".sub-menu").slideToggle(400, function () {
+                $(this).closest(".main-list").find(".sub-menu").toggleClass("-none")
+            });
+        });
+
+
+        // 彈出職缺清單 (ok)
+        $(".interview-invitation-btn").on("click", function () {
+            $(".invite-container").removeClass("-none");
+            $(".invite-form").removeClass("-none");
+            $(".invite-formt").css({ zIndex: 30 });
+            $(".invite-container").css({ zIndex: 30 });
+        })
+
+        // 彈出人才履歷 
+        $(document).on("click", ".check-bio-btn", function () {
+            $(".talent-bio").removeClass("-none");
+            $(".taletn-bio-container").removeClass("-none");
+            // $(".talent-bio").css({ zIndex: 30 });
+        })
+
+        // ===================================================================================
+        //   退出職缺清單(x鍵、確定鍵) (ok)
+        $(".invite-title i").on("click", function () {
+            $(".invite-container").addClass("-none");
+            $(".invite-form").addClass("-none");
+            $(".invite-formt").css({ zIndex: -11 });
+            $(".invite-container").css({ zIndex: -11 });
+        });
+        $(".invite-btn").on("click", function () {
+            $(".invite-container").addClass("-none");
+            $(".invite-form").addClass("-none");
+            $(".invite-formt").css({ zIndex: -11 });
+            $(".invite-container").css({ zIndex: -11 });
+        });
+
+        //   退出人才履歷(x鍵) (ok)
+        $(".bio-info > i").on("click", function () {
+            $(".talent-bio").addClass("-none");
+            $(".taletn-bio-container").addClass("-none");
+        })
+    </script>
+    <script src="../vue/TalentList.vue.js"></script>
+    <!--    <script src="../vue/TalentResume.vue.js"></script>-->
+    <!-- header 讀取企業會員資訊 -->
+    <script src="../js/readInfoHeader.js"></script>
+</body>
+
+</html>
